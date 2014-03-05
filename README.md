@@ -4,8 +4,49 @@ Source-Id Feature
 Description
 -----------
 
-TODO: Add some text here to describe the whole concept for the source-id aka
-"source-indexing" (MS).
+When debugging executables or analyzing crash dumps a developer has always two
+problems. Find the right debug symbols and find the right sources which match
+the executable.
+
+It is good practice to archive the debug symbols when ever you release a
+product. Therefor it is important to build the executable with debug info (-g)
+also in release mode (RelWithDebInfo for CMake users). The build-id feature of
+GDB allows to featch the correct symbols for your executable automatically. See
+http://randomascii.wordpress.com/2013/03/05/symbols-on-linux-update-fedora-fixes/
+for more information on howto use build-ids.
+
+To get the correct sources most people are creating tags in version control
+system. When debugging an executable your need to extract the version
+information of this executable, search for a tag for this version in the
+version control system and check out this version. If everything works you have
+the correct sources for your executable.
+
+The source-id feature can automate this process and make it more reliable.
+Similar to the build-id we embedded the current version which was used to build
+the binary in a ELF .note section. GDB is enhanced to extract this information
+from the executable during debugging an can fetch the sources automatically from
+source server. GDB calls an external fetch script which can be customized by the
+user. This way a user can configure how and where to fetch sources from. This
+script can cache fetched files locally so that you don't need to fetch the same
+file more than once. Therefore the script can generate a Sha1 sum of the file
+contents.
+
+What happens if the exact file version, which was used to built the executable
+is not under version control? The bad news is you don't have the correct source
+file. The good news is you can detect this. An additional option is to embeeded
+the file hash for each source file in an additional section which gets archived
+with the debug info. When the fetch script fetches sources from a server we can
+compare this file hash with the embedded one and detect if the file is the
+correct one.
+
+Today GDB only detects changes of locale files based on the timestamp, so this
+would a big improvement.
+
+The source-lookup using the fetch-script in GDB will be an option which is
+disabled by default. This way the normal developer can debug as usual without
+getting annoyed by fetching attempts of GDB when you don't have a source server.
+GDB will only call this external fetch-script if the source-lookup is enabled
+and the executable being debugged contains source-id information.
 
 Indexing-Part
 -------------
