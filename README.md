@@ -150,11 +150,11 @@ section to verify the results.
 
     $> readelf -p .note.gnu.source-id demo
     String dump of section '.note.gnu.source-id':
-      [     4]  E
+      [     4]  Q
       [     8]  gE#GNU
       [    10]  git
-      [    14]  git@git.ascolab.com:bla
-      [    2c]  da72c625e7c1676afbce2c216c9b1aefdd7c9361
+      [    14]  git@github.com:gergap/source-id.git
+      [    38]  c2ec66e6a36451ba47422d186fd97311989ef278
 
 Integration in GDB
 ------------------
