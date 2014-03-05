@@ -129,9 +129,14 @@ Listing all ELF notes
       GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
         OS: Linux, ABI: 2.6.16
 
-    Notes at offset 0x000002ac with length 0x00000058:
+    Notes at offset 0x000002ac with length 0x00000064:
       Owner                 Data size	Description
-      GNU                  0x00000045	Unknown note type: (0x01234567)
+      GNU                  0x00000051	Unknown note type: (0x01234567)
+
+    Notes at offset 0x00000310 with length 0x00000024:
+      Owner                 Data size	Description
+      GNU                  0x00000014	NT_GNU_BUILD_ID (unique build ID bitstring)
+        Build ID: c326bd8324114549bd985af8f77b13d406456fe9
 
 As you can see the readelf utility cannot display the description filed of the
 new note type, because it doesn't know it. But it shows you the type number and
