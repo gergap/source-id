@@ -9,9 +9,9 @@ problems. Find the right debug symbols and find the right sources which match
 the executable.
 
 It is good practice to archive the debug symbols when ever you release a
-product. Therefor it is important to build the executable with debug info (-g)
+product. Therefore it is important to build the executable with debug info (-g)
 also in release mode (RelWithDebInfo for CMake users). The build-id feature of
-GDB allows to featch the correct symbols for your executable automatically. See
+GDB allows to fetch the correct symbols for your executable automatically. See
 http://randomascii.wordpress.com/2013/03/05/symbols-on-linux-update-fedora-fixes/
 for more information on howto use build-ids.
 
@@ -33,7 +33,7 @@ contents.
 
 What happens if the exact file version, which was used to built the executable
 is not under version control? The bad news is you don't have the correct source
-file. The good news is you can detect this. An additional option is to embeeded
+file. The good news is you can detect this. An additional option is to embedded
 the file hash for each source file in an additional section which gets archived
 with the debug info. When the fetch script fetches sources from a server we can
 compare this file hash with the embedded one and detect if the file is the
