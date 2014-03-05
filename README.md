@@ -18,16 +18,16 @@ http://fedoraproject.org/wiki/Releases/FeatureBuildId).
 
 The contents of the source-id section is as follows:
 
-vcs-type: a string specifying what VCS should be used (e.g. "git", "svn", "p4", ...)
-vcs-url: an URL specifying the repository where to get the sources from
-  (e.g. "git://sourceware.org/git/binutils-gdb.git")
-vcs-version: a string specifying the version which was used to build the
-  executable. With Git this could be the Git SHA1 sum e.g.
-  "92c354d6227055e7ede82c9d56ebd5f90106273f", with subversion this could be the
-  global revision counter. Note, because we only have one version field this must
-  uniquly indentify the complete sources, which is the case for modern VCS system
-  like Git and Subversion, but not for CVS, which has only file based revision
-  counters.
+    vcs-type: a string specifying what VCS should be used (e.g. "git", "svn", "p4", ...)
+    vcs-url: an URL specifying the repository where to get the sources from
+      (e.g. "git://sourceware.org/git/binutils-gdb.git")
+    vcs-version: a string specifying the version which was used to build the
+      executable. With Git this could be the Git SHA1 sum e.g.
+      "92c354d6227055e7ede82c9d56ebd5f90106273f", with subversion this could be the
+      global revision counter. Note, because we only have one version field this must
+      uniquely indentify the complete sources, which is the case for most modern VCS
+      systems like Git and Subversion, but not for CVS, which has only file based revision
+      numbers.
 
 This section can be created simply using 'GNU as (assembler)':
 
@@ -44,7 +44,7 @@ This section can be created simply using 'GNU as (assembler)':
     3:  .p2align 2
 
 This section can be generated during the build-process. Here is example using
-CMake, but this also works usin Make, shell scripts or whatever you are using to
+CMake, but this also works using Make, shell scripts or whatever you are using to
 build your projects.
 
 CMake Example
@@ -90,9 +90,9 @@ Listing all ELF notes
       Owner                 Data size	Description
       GNU                  0x00000045	Unknown note type: (0x01234567)
 
-As you can see the readelf utility cannot display the description filed of the new note type,
-because it doesn't know it. But it shows yout the type number of size of the
-note.
+As you can see the readelf utility cannot display the description filed of the
+new note type, because it doesn't know it. But it shows you the type number and
+size of the note.
 
 Dumping the .note.gnu.source-id section
 ---------------------------------------
