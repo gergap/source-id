@@ -1,0 +1,5 @@
+It does not matter how the script is named and where you store it,
+it only must be executable by /bin/sh.
+
+By convention I place my fetch scripts into ~/.gdb/fetch_source.
+

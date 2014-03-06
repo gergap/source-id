@@ -1,0 +1,40 @@
+#!/bin/bash
+# Example GDB fetch_source script for fetching source files from Github
+# (C) 2014 Gerhard Gappmeier, ascolab GmbH
+
+# Command line args
+VCS_TYPE=$1     # e.g. git
+VCS_URL=$2      # e.g. git@server.com:path
+VCS_VERSION=$3  # git sha1sum, svn revision, etc.
+FILE=$4         # file name to fetch
+HASH=$5         # optional file hash for file validation
+
+######################
+# Configuration Start
+# path part that should be stripped from filename
+# This is normally the path of your buildbot where the executable was built and
+# which is not part of the repository path.
+STRIP_PATH="/home/gergap/projects/source-id/"
+# Base URL for fetching sources for project 'source-id' from Github
+URL="https://raw.github.com/gergap/source-id"
+# Source directory where fetches sources should be stored
+SOURCE_DIR="$HOME/sources"
+# Configuration End
+######################
+
+# The VCS_VERSION is a Git Sha1
+SHA1=$VCS_VERSION
+
+# stripping path info
+FILE=${FILE#$STRIP_PATH}
+
+# compute fetch URL
+URL="$URL/$SHA1/$FILE"
+
+# create directory where to store this file version
+mkdir -p "${SOURCE_DIR}/$SHA1"
+# fetch source
+wget "$URL" -o "${SOURCE_DIR}/$SHA1/$FILE" || exit 1
+
+exit 0
+

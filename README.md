@@ -159,7 +159,16 @@ section to verify the results.
 Integration in GDB
 ------------------
 
-TODO
+The source-id feature gets currently implemented in my own gdb fork. See
+https://github.com/gergap/binutils-gdb
+
+To activate source-lookup by using the embedded source-id you must configure
+the 'source-lookup' hook, which fetches the sources for GDB.
+By providing such a script you have full control on how GDB is fetching sources.
+
+You can add this command to your ~/.gdbinit file:
+
+    set source-lookup ${HOME}/.gdb/fetch_source
 
 GDB fetch-source hook scripts
 -----------------------------
