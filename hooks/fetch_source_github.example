@@ -27,6 +27,8 @@ SHA1=$VCS_VERSION
 
 # stripping path info
 FILE=${FILE#$STRIP_PATH}
+# compute local cache filename
+CACHEFILE="${SOURCE_DIR}/$SHA1/$FILE"
 
 # compute fetch URL
 URL="$URL/$SHA1/$FILE"
@@ -34,7 +36,10 @@ URL="$URL/$SHA1/$FILE"
 # create directory where to store this file version
 mkdir -p "${SOURCE_DIR}/$SHA1"
 # fetch source
-wget "$URL" -o "${SOURCE_DIR}/$SHA1/$FILE" || exit 1
+wget "$URL" -O "$CACHEFILE" || exit 1
+
+# output file name that gdb should open
+echo "$CACHEFILE"
 
 exit 0
 
