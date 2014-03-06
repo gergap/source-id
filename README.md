@@ -134,12 +134,12 @@ Listing all ELF notes
 
     Notes at offset 0x000002ac with length 0x00000064:
       Owner                 Data size	Description
-      GNU                  0x00000051	Unknown note type: (0x01234567)
+      GNU                  0x00000051	Unknown note type: (0x00000005)
 
     Notes at offset 0x00000310 with length 0x00000024:
       Owner                 Data size	Description
       GNU                  0x00000014	NT_GNU_BUILD_ID (unique build ID bitstring)
-        Build ID: c326bd8324114549bd985af8f77b13d406456fe9
+        Build ID: 6a93db589007373586ebdf07d57eeab247e34adc
 
 As you can see the readelf utility cannot display the description filed of the
 new note type, because it doesn't know it. But it shows you the type number and
