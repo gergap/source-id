@@ -19,6 +19,8 @@ STRIP_PATH="/home/gergap/projects/source-id/"
 URL="https://raw.github.com/gergap/source-id"
 # Source directory where fetches sources should be stored
 SOURCE_DIR="$HOME/sources"
+# fetching logfile
+LOGFILE="$HOME/sources/fetch.log"
 # Configuration End
 ######################
 
@@ -37,7 +39,7 @@ URL="$URL/$SHA1/$FILE"
 mkdir -p "${SOURCE_DIR}/$SHA1"
 # fetch source if not already exists in cache
 # TODO: add sha1sum validation (HASH info is currently not available)
-[ -e "$CACHEFILE" ] || wget "$URL" -O "$CACHEFILE" || exit 1
+[ -e "$CACHEFILE" ] || wget -a "$LOGFILE" "$URL" -O "$CACHEFILE" || exit 1
 
 # output file name that gdb should open
 echo "$CACHEFILE"
