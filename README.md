@@ -94,7 +94,7 @@ The section .note.gnu.source-id can be created simply using 'GNU as (assembler)'
         .p2align 2          # 4 byte aligned
         .long 1f - 0f       # size of name field (not including padding)
         .long 3f - 2f       # size of description field (not including padding)
-        .long 0x01234567    # note type (TODO: need to be registered at GNU)
+        .long 5             # note type: NT_GNU_SOURCE_ID
     0:  .asciz "GNU"        # vendor name of this extension "GNU"
     1:  .p2align 2
     2:  .asciz "git"        # vcs-type
