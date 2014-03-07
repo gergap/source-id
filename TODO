@@ -13,4 +13,8 @@ TODO list for completing the source-id feature
   There may be the case that the path is too short (I'm not sure), in this case
   we need to ensure that the relative path from the repository top-level
   directory gets prepended to the filename.
+* the new note type NT_GNU_SOURCE_ID(5) needs to be registered at GNU (where?)
+* the patches must be sent to the gdb-patches mailing list
+* before that we need to recheck if the GNU coding style is correctly used
+  everywhere. See gdb/CONTRIBUTE file.
 
