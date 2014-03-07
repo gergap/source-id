@@ -62,7 +62,17 @@ With indexing we mean the process of embedding the version information of a VCS
 ".note.gnu.build-id" (See
 http://fedoraproject.org/wiki/Releases/FeatureBuildId).
 
-The contents of the source-id section is as follows:
+A .note section has this basic structure:
+
+    Name Size: 4 Bytes (integer)
+    Desc Size: 4 Bytes (integer)
+    Type:      4 Bytes (usually interpretd as integer)
+    Name:      variable size, padded to a 4 byte boundary
+    Desc:      variable size, padded to a 4 byte boundary
+
+The "Name" field specifies the vendor who defined the format of the note. In our
+case this is "GNU" (I hope, it's not official yet). The "Desc" field contains
+our source-id data and consists of three zero-terminated strings:
 
     vcs-type: a string specifying what VCS should be used (e.g. "git", "svn", "p4", ...)
     vcs-url: an URL specifying the repository where to get the sources from
@@ -75,7 +85,10 @@ The contents of the source-id section is as follows:
       systems like Git and Subversion, but not for CVS, which has only file based revision
       numbers.
 
-This section can be created simply using 'GNU as (assembler)':
+See https://www.netbsd.org/docs/kernel/elf-notes.html for more details on ELF
+Note elements.
+
+The section .note.gnu.source-id can be created simply using 'GNU as (assembler)':
 
         .section ".note.gnu.source-id", "a"
         .p2align 2          # 4 byte aligned
