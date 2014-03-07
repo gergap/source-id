@@ -1,0 +1,16 @@
+TODO list for completing the source-id feature
+----------------------------------------------
+
+* adding file hash for each source file to th debug info.
+  This filename are already there in .debug_str section.
+  (http://dwarfstd.org/doc/DWARF4.pdf)
+* add file hash validation in GDB. This is superior over the mtime check
+  that exists today in GDB.
+* change source paths in debug info to repository path.
+  The problem is that the paths can be an absolute path, so contains a partial
+  path with is not part of the repository path. This should be stripped which
+  is done at the moment by the fetch_source script.
+  There may be the case that the path is too short (I'm not sure), in this case
+  we need to ensure that the relative path from the repository top-level
+  directory gets prepended to the filename.
+
