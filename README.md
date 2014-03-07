@@ -189,6 +189,34 @@ You can add this command to your ~/.gdbinit file:
 GDB fetch-source hook scripts
 -----------------------------
 
-TODO
+GDB calls the hook script specified using the "source-lookup" option.
+The script is called with the following commandline arguments:
+
+    VCS_TYPE: a string identifying the used version control system.
+      Examples: "git", "svn", "p4", ...
+    VCS_URL: the url of the repository containing the sources
+    VCS_VERSION: the version information: A git SHA1, an svn revision number, ...
+      The version format depends on the used VCS_TYPE.
+    FILE: the filename requested by GDB.
+    HASH: the SHA1 hash of the file contents (not yet available). This can be
+      used in future versions to validate if the file contents matches the
+      source file used to build the executable.
+
+How and where the script fetches the sources from is up to the script.
+Smart scripts should cache the files that are fetched, avoiding fetching them
+again over and over again. The cache location is also defined by the script.
+
+**Exit codes**: The script must return an exit code of 0 (EXIT\_SUCCESS) to
+indicate successful fetching. All other exit codes are interpreted as FAILURE.
+
+**Cache filename**: The script must output the filename of the locally cached
+file to stdout. GDB reads this filename in opens this file. Note: Don't output
+anything else to stdout to make this working. Print any errors to stderr.
+
+If invoking the script fails, the script returns an non-zero exit code or
+opening the file returned by the script fails, GDB will fall back to it's normal
+source_open routines.
+
+See hooks/fetch_source_github.example for one example implementation.
 
 
