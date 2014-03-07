@@ -184,7 +184,7 @@ By providing such a script you have full control on how GDB is fetching sources.
 
 You can add this command to your ~/.gdbinit file:
 
-    set source-lookup ${HOME}/.gdb/fetch_source
+    set source-lookup /path/to/fetch_source
 
 GDB fetch-source hook scripts
 -----------------------------
