@@ -17,4 +17,7 @@ TODO list for completing the source-id feature
 * the patches must be sent to the gdb-patches mailing list
 * before that we need to recheck if the GNU coding style is correctly used
   everywhere. See gdb/CONTRIBUTE file.
+* Maybe the GNU ld can be extended to provide a --source-id switch analogous to
+  --build-id. This way we could get rid of generating the source-id section by
+  using CMake+as+ld.
 
