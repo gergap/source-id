@@ -1,0 +1,52 @@
+#!/bin/bash
+# Example GDB fetch_source script for fetching source files from Github
+# (C) 2014 Gerhard Gappmeier, ascolab GmbH
+
+# Command line args
+VCS_TYPE=$1     # e.g. git
+VCS_URL=$2      # e.g. git@server.com:path
+VCS_VERSION=$3  # git sha1sum, svn revision, etc.
+FILE=$4         # file name to fetch
+HASH=$5         # optional file hash for file validation
+
+######################
+# Configuration Start
+# path part that should be stripped from filename
+# This is normally the path of your buildbot where the executable was built and
+# which is not part of the repository path.
+STRIP_PATH="/home/gergap/work/uaexpert/"
+# cgit server name
+CGIT_SERVER="cgit.ascolab.com"
+# repository name
+REPO="products/uaexpert"
+# Source directory where fetches sources should be stored
+SOURCE_DIR="$HOME/sources"
+# fetching logfile
+LOGFILE="$HOME/sources/fetch.log"
+# Configuration End
+######################
+
+# The VCS_VERSION is a Git Sha1
+SHA1=$VCS_VERSION
+
+# stripping path info
+FILE=${FILE#$STRIP_PATH}
+# get dirname
+DIRNAME=`dirname $FILE`
+# compute local cache filename
+CACHEFILE="${SOURCE_DIR}/$SHA1/$FILE"
+
+# compute fetch URL
+URL="http://$CGIT_SERVER/$REPO/plain/$FILE?id=$SHA1"
+
+# create directory where to store this file version
+mkdir -p "${SOURCE_DIR}/$SHA1/$DIRNAME"
+# fetch source if not already exists in cache
+# TODO: add sha1sum validation (HASH info is currently not available)
+[ -e "$CACHEFILE" ] || wget -a "$LOGFILE" "$URL" -O "$CACHEFILE" || exit 1
+
+# output file name that gdb should open
+echo "$CACHEFILE"
+
+exit 0
+
