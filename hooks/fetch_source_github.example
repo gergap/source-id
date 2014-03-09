@@ -29,6 +29,8 @@ SHA1=$VCS_VERSION
 
 # stripping path info
 FILE=${FILE#$STRIP_PATH}
+# get dirname
+DIRNAME=`dirname $FILE`
 # compute local cache filename
 CACHEFILE="${SOURCE_DIR}/$SHA1/$FILE"
 
@@ -36,7 +38,7 @@ CACHEFILE="${SOURCE_DIR}/$SHA1/$FILE"
 URL="$URL/$SHA1/$FILE"
 
 # create directory where to store this file version
-mkdir -p "${SOURCE_DIR}/$SHA1"
+mkdir -p "${SOURCE_DIR}/$SHA1/$DIRNAME"
 # fetch source if not already exists in cache
 # TODO: add sha1sum validation (HASH info is currently not available)
 [ -e "$CACHEFILE" ] || wget -a "$LOGFILE" "$URL" -O "$CACHEFILE" || exit 1
