@@ -5,7 +5,7 @@
 # your symbol directory
 # Tip: you can put this onto a NFS server so that new debug
 # symbols are available for all developers in your network.
-SYMBOLDIR="~/symbols"
+SYMBOLDIR="/mnt/symbols"
 # product name
 PRODUCT="demo"
 # product version
@@ -31,7 +31,7 @@ cp $DEBUGINFO $INSTALLPATH
 # Separate-Debug-Files.html.
 BUILD_ID=`readelf -n demo.debug | grep "Build ID:" | sed -e 's/.*\([a-f0-9]\{40\}\).*/\1/g'`
 FOLDER=${BUILD_ID:0:2}
-LINKNAME=${BUILD_ID:2:38}
+LINKNAME="${BUILD_ID:2:38}.debug"
 
 # create folder with 1st two digits of build-id
 mkdir -p $SYMBOLDIR/.build-id/$FOLDER || exit 1
