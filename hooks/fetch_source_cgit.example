@@ -1,5 +1,7 @@
 #!/bin/bash
-# Example GDB fetch_source script for fetching source files from Github
+# Example GDB fetch_source script for fetching source files from cgit web
+# interface. This example values work for ascolan. Change the configuration
+# options to fit your cgit server before using this script.
 # (C) 2014 Gerhard Gappmeier, ascolab GmbH
 
 # Command line args
