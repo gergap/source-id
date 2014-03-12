@@ -23,6 +23,17 @@ REPO="products/uaexpert"
 SOURCE_DIR="$HOME/sources"
 # fetching logfile
 LOGFILE="$HOME/sources/fetch.log"
+# PROTOCOL: http or https
+PROT="http://"
+# Uncomment the following options to use client authentication using x509
+# certificates. Note the client key should not be password protected to avoid
+# the password prompt. Therefore you should configure secure file permissions:
+# -r-------- you yourgroup client.key
+#CACERT=~/private/cacert.pem
+#CLIENTCERT=~/private/client.crt
+#CLIENTKEY=~/private/client.key
+#PROT="https://"
+#OPTIONS="--ca-certificate=$CACERT --certificate=$CLIENTCERT --private-key=$CLIENTKEY"
 # Configuration End
 ######################
 
@@ -37,13 +48,13 @@ DIRNAME=`dirname $FILE`
 CACHEFILE="${SOURCE_DIR}/$SHA1/$FILE"
 
 # compute fetch URL
-URL="http://$CGIT_SERVER/$REPO/plain/$FILE?id=$SHA1"
+URL="$PROT$CGIT_SERVER/$REPO/plain/$FILE?id=$SHA1"
 
 # create directory where to store this file version
 mkdir -p "${SOURCE_DIR}/$SHA1/$DIRNAME"
 # fetch source if not already exists in cache
 # TODO: add sha1sum validation (HASH info is currently not available)
-[ -e "$CACHEFILE" ] || wget -a "$LOGFILE" "$URL" -O "$CACHEFILE" || exit 1
+[ -e "$CACHEFILE" ] || wget -a "$LOGFILE" $OPTIONS "$URL" -O "$CACHEFILE" || exit 1
 
 # output file name that gdb should open
 echo "$CACHEFILE"
