@@ -12,7 +12,7 @@ It is good practice to archive the debug symbols whenever you release a
 product. Therefore it is important to build the executable with debug info (-g)
 also in release mode (RelWithDebInfo for CMake users). The build-id feature of
 GDB allows to fetch the correct symbols for your executable automatically. This
-way you don't need to find and copy the archive debug symbols manually to your
+way you don't need to find and copy the archived debug symbols manually to your
 debugging machine. See
 http://randomascii.wordpress.com/2013/03/05/symbols-on-linux-update-fedora-fixes/
 for more information on howto use build-ids.
@@ -21,8 +21,8 @@ To get the correct sources most people are creating tags in their version
 control systems. When debugging an executable your need to extract the version
 information of this executable, search for a tag for this version in the version
 control system and check out this version. If everything works you have the
-correct sources for your executable. Because the source paths used to build the
-executable are most likely different then on your debugging machine GDB doesn't
+correct sources for your executable. Because the source paths used by the build
+machine are most likely different than on your debugging machine GDB doesn't
 find the files automatically. Using "set substitute-path" you can tell GDB in
 what path your sources are.
 
@@ -32,9 +32,8 @@ binary in an ELF .note section. GDB can extract this information from
 the executable during debugging an can fetch the sources automatically from a
 "source server". GDB calls an external fetch script which can be customized by
 the user. This way a user can configure how and where to fetch sources from.
-This script can cache fetched files locally so that you don't need to fetch the
-same file more than once. Therefore the script can generate a Sha1 sum of the
-file contents.
+This script can cache fetched files locally so that no file needs to be fetched
+more than once. To find a cached files a Sha1 sum of the file contents is used.
 
 What happens if the exact file version which was used to built the executable
 is not under version control? The bad news is you don't have the correct source
@@ -45,7 +44,7 @@ compare this file hash with the embedded one and detect if the file is the
 correct one or not.
 
 Today GDB only detects changes of local files based on the timestamp, so this
-would a big improvement.
+would be a big improvement.
 
 The source-lookup using the fetch-script in GDB will be an option which is
 disabled by default. This way the normal developer can debug as usual without
@@ -204,16 +203,16 @@ The script is called with the following commandline arguments:
 
 How and where the script fetches the sources from is up to the script.
 Smart scripts should cache the files that are fetched, avoiding fetching them
-again over and over again. The cache location is also defined by the script.
+over and over again. The cache location is also defined by the script.
 
 **Exit codes**: The script must return an exit code of 0 (EXIT\_SUCCESS) to
 indicate successful fetching. All other exit codes are interpreted as FAILURE.
 
 **Cache filename**: The script must output the filename of the locally cached
-file to stdout. GDB reads this filename in opens this file. Note: Don't output
+file to stdout. GDB reads this filename and opens this file. Note: Don't output
 anything else to stdout to make this working. Print any errors to stderr.
 
-If invoking the script fails, the script returns an non-zero exit code or
+If invoking the script fails, the script returns an non-zero exit code, or
 opening the file returned by the script fails, GDB will fall back to it's normal
 source_open routines.
 
