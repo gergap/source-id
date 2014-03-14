@@ -218,4 +218,23 @@ source_open routines.
 
 See hooks/fetch_source_github.example for one example implementation.
 
+Status
+------
+
+What works:
+
+* Indexing works: The version info gets embedded into the exectuable as
+  described above.
+* The GDB fork can use the info to fetch the sources
+* The example github fetch script works
+* The example cgit fetch script works.
+
+TODOs:
+
+* Add SHA1 hash for each file, identifying the file contents
+* Change GDB to detect wrong source files using this hash
+* Change fetch scripts to use the hash for reliable caching
+* Create a GDB patch and contribute it to GDB's mailinglist
+ - Actually we can do this already for the existing part, that works
+ - File hashes should become a separate patch
 
